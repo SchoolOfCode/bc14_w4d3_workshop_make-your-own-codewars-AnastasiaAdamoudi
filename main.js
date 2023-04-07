@@ -34,20 +34,18 @@ For example, if a cucumber is planted on the 15th April, the function should ret
 // The variable nextMonthDays gives us the May day we need
 // Fill the new string with the relevant information and return it
 
-function aprilVeg(vegetable) {
-    let movingDay = ``; // Declare an empty string
+export function aprilVeg(vegetable) { // Declare the function aprilVeg that takes an object as a parameter
     let currentMonthDays = 0; // Declare the variable currentMonthDays that is the number of days from the planting day until the end (30th) of April
     let nextMonthDays = 0; // Declare the variable nextMonthDays that is the number of days left for May (three weeks minus currentMonthDays)
-    if (vegetable.day > 0 && vegetable <= 30) { // If the day is from 1 to 30, push the string with the moving day into the array
+    if (vegetable.day > 0 && vegetable.day <= 30) { // If the day is from 1 to 30, push the string with the moving day into the array
         if (vegetable.day <= 9) { // If the vegetable is planted until the 9th of April, it must be moved before April finishes, so we add 21 days from the planting day 
-            movingDay = `The ${vegetable.name} planted on April ${vegetable.day} needs to be moved outside on April ${vegetables.day + 21}.`; // Every time we loop through the initial array and get all the information, fill the new array with the relevant strings
+            return `The ${vegetable.name} planted on April ${vegetable.day} needs to be moved outside on April ${vegetable.day + 21}.`; // Fill the new string with the relevant information 
         }
-        else if (vegetable.day <= 9) { // If the vegetable is planted after the 9th of April, it must be moved in May, so we need to calculate how many days from the plantind day until the end of April and how many more days from the 1st of May until we reach the three weeks
+        else if (vegetable.day > 9) { // If the vegetable is planted after the 9th of April, it must be moved in May, so we need to calculate how many days from the plantind day until the end of April and how many more days from the 1st of May until we reach the three weeks
             currentMonthDays = 30 - vegetable.day; // the number of days from the planting day until the end (30th) of April
             nextMonthDays = 21 - currentMonthDays; // the number of days left for May (three weeks minus currentMonthDays)
-            movingDay = `The ${vegetable.name} planted on April ${vegetable.day} needs to be moved outside on May ${nextMonthDays}.`; // Every time we loop through the initial array and get all the information, fill the new array with the relevant strings
+            return `The ${vegetable.name} planted on April ${vegetable.day} needs to be moved outside on May ${nextMonthDays}.`; // Fill the new string with the relevant information 
         }
-        return movingDay; // Return the new string with the day the vegetable was planted and the day it needs to be moved
     }
     else {
         return `Invalid day for the month of April.`; // If the day isn't between 1 to 30, push the string "Invalid day for the month of April." into the array
