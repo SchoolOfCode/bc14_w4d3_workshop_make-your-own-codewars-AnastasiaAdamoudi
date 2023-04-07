@@ -58,3 +58,24 @@ test("Courgette planted on April 0", () => {
     const expected = `Invalid day for the month of April.`; 
     expect(actual).toBe(expected); 
 });
+
+test("Name and day both missing", () => { 
+    const vegetable = { name: ``, day: null }; 
+    const actual = aprilVeg(vegetable); 
+    const expected = `Empty data.`; 
+    expect(actual).toBe(expected); 
+});
+
+test("Name missing", () => { 
+    const vegetable = { name: ``, day: 8 }; 
+    const actual = aprilVeg(vegetable); 
+    const expected = `Empty data.`; 
+    expect(actual).toBe(expected); 
+});
+
+test("Day missing", () => { 
+    const vegetable = { name: `green pepper`, day: null }; 
+    const actual = aprilVeg(vegetable); 
+    const expected = `Empty data.`; 
+    expect(actual).toBe(expected); 
+});
