@@ -1,7 +1,7 @@
 /* 
 👉 Write your kata here!
 
-APRIL VEGETABLE CALENDAR
+APRIL VEGETABLE CALENDAR (string version)
 
 In this kata, you are given an object that contains the vegatable seeds you plant in April
 (since it's a great month to start planting summer vegetables!).
@@ -16,7 +16,18 @@ For example, if a cucumber is planted on the 15th April, the function should ret
 - A string with the message "Invalid day for the month of April." if the day of the month entered isn't between 1 and 30.
 - A string with the message "Empty data." if the object is empty or if the name or day properties are missing.
 
+
+APRIL VEGETABLE CALENDAR (array version)
+
+If you enjoyed working on the string version of the kata, here's the array version.
+
+Write a function 'aprilVegArrays' that takes an array of objects as a parameter.
+The array contains the vegetable objects that you need to process. 
+The function should return a new array of strings with the same format as the string version of the kata.
+
 */
+
+
 
 //👉 Write the function your CodeWarriors will start with below here:
 
@@ -38,7 +49,7 @@ For example, if a cucumber is planted on the 15th April, the function should ret
 export function aprilVeg(vegetable) { // Declare the function aprilVeg that takes an object as a parameter
     let currentMonthDays = 0; // Declare the variable currentMonthDays that is the number of days from the planting day until the end (30th) of April
     let nextMonthDays = 0; // Declare the variable nextMonthDays that is the number of days left for May (three weeks minus currentMonthDays)
-    if (vegetable.name === `` || vegetable.day === null) {
+    if (vegetable.name.length === 0 || vegetable.day === null) {
         return `Empty data.`; // If the object is empty or if the name or day properties are missing, return the string "Empty data."
     }
     else {
@@ -56,4 +67,32 @@ export function aprilVeg(vegetable) { // Declare the function aprilVeg that take
             return `Invalid day for the month of April.`; // If the day isn't between 1 to 30, push the string "Invalid day for the month of April." into the array
         }
     }
+}
+
+
+export function aprilVegArrays(vegArray) {
+    let movingDaysArray = [``]; // Declare an empty array of strings (that will be what the function returns)
+    let currentMonthDays = 0; // Declare the variable currentMonthDays that is the number of days from the planting day until the end (30th) of April
+    let nextMonthDays = 0; // Declare the variable nextMonthDays that is the number of days left for May (three weeks minus currentMonthDays)
+    for (let i=0; i<vegArray.length; i++) { // Loop through the object array
+        if (vegArray[i].name.length === 0 || vegArray[i].day === null) {
+            movingDaysArray[i] = `Empty data.`; // If the object is empty or if the name or day properties are missing, push the string "Empty data." into the array
+        }
+        else {
+            if (vegArray[i].day > 0 && vegArray[i].day <= 30) {     
+                if (vegArray[i].day <= 9) { // If the vegetable is planted until the 9th of April, it must be moved before April finishes, so we add 21 days from the planting day 
+                    movingDaysArray[i] = `The ${vegArray[i].name} planted on April ${vegArray[i].day} needs to be moved outside on April ${vegArray[i].day + 21}.`; // Every time we loop through the initial array and get all the information, fill the new array with the relevant strings
+                }
+                else if (vegArray[i].day > 9) { // If the vegetable is planted after the 9th of April, it must be moved in May, so we need to calculate how many days from the plantind day until the end of April and how many more days from the 1st of May until we reach the three weeks
+                    currentMonthDays = 30 - vegArray[i].day; // the number of days from the planting day until the end (30th) of April
+                    nextMonthDays = 21 - currentMonthDays; // the number of days left for May (three weeks minus currentMonthDays)
+                    movingDaysArray[i] = `The ${vegArray[i].name} planted on April ${vegArray[i].day} needs to be moved outside on May ${nextMonthDays}.`; // Every time we loop through the initial array and get all the information, fill the new array with the relevant strings
+                }
+            }       
+            else {
+            movingDaysArray[i] = "Invalid day for the month of April."; // If the day isn't between 1 to 30, push the string "Invalid day for the month of April." into the array
+            }
+        }
+    }
+    return movingDaysArray; // Return the new array with the days each vegetable needs to be moved
 }
